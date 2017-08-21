@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="__STATIC__/admin/images/title.jpg"  type="image/x-icon"/>
+    <title>管理中心</title>
+    {css href="__STATIC__/admin/css/supersized.css,__STATIC__/admin/css/login.css,__STATIC__/admin/css/bootstrap.min.css"}
+    {js href="__STATIC__/admin/js/jquery.min.js,__STATIC__/admin/js/wang.js,__STATIC__/common/js/common.js" /}
+    {css href="__STATIC__/admin/css/public.css"}
+</head>
+<body style="height: 100%;overflow: hidden;background-color: #EEEEEE;">
+<div class="head">
+    <div id="head">
+        <div class="logo"><a target="main" style="color: #fff;font-size: 18px;line-height: 40px;margin-left: 40px;"><i>ALEEX CMS</i></a></div>
+        <div class="nav">
+            <ul>
+                <li class="M"><a href="JavaScript:void(0);" class="topAdd">新建</a>
+                    <div class="drop mTopad"><a href="{:url('product/add')}" target="main">商品</a> <a href="{:url('article/add')}" target="main">文章</a> <a href="{:url('nav/add')}" target="main">自定义导航</a> <!--<a href="../show.html">首页幻灯</a>--> <a href="{:url('page/add')}" target="main">单页面</a> <a href="{:url('admin/add')}" target="main">管理员</a> <a href="#"></a> </div>
+                </li>
+                <li><a href="{$web_site}" target="_blank">查看站点</a></li>
+                <li><a id="clear-cache" href="javascript:void(0);">清除缓存</a></li>
+                <li><a href="http://www.5none.com" target="_blank">帮助</a></li>
+                <li class="noRight"><a href="{:url('nav/add')}" target="main"> +</a></li>
+            </ul>
+            <ul class="navRight">
+                <li class="M noLeft"><a href= "{:url('admin/edit',['id' => $userid])}" target="main">您好，{$username}</a>
+                    <div class="drop mUser">
+                        <a href="{:url('admin/edit',['id' => $userid])}" target="main">编辑我的个人资料</a>
+                        <a href="{:url('admin/add')}" target="main">添加账户</a>
+                    </div>
+                </li>
+                <li class="noRight" id="logout"><a href="JavaScript:void(0);">退出</a></li>
+                <script type="text/javascript">
+                    var logout="{:url('admin/login/loginOut')}";
+                </script>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--包含公共模版-->
+<iframe src=""></iframe>
+<div class="left">
+    <div id="menu_2">
+        <ul class="first_ul">
+        {volist name='all_nav' id='rows' }
+            {if condition='$rows.parentId eq 0'}
+            <li  class="nav-manage top-nav">
+                <a {if condition="$rows.menuName=='栏目管理'"}href="#"{else/}href="{:url($rows.link)}" target="main"{/if} ><em>{$rows.menuName}</em>{if condition="$rows.menuName=='栏目管理'"}<span class="arrow"></span>{/if}</a>
+                {if condition="$rows.menuName=='栏目管理'"}
+                <ul class="second-ul">
+                {volist name='sec_nav' id='menu_2'}
+                <li><a {if condition="$menu_2['modelid']=='2'"}href="{:url('page/edit',['id' => $menu_2.id])}"{else/}href="{:url($menu_2.template_show)}"{/if} target="main"> <i class="nav"></i><em>{$menu_2.name}</em></a></li>
+                {/volist}
+                </ul>
+                {/if}
+            </li>
+            {/if}
+        {/volist}
+        </ul>
+    </div>
+</div>
+<div class="right"> <!-- 当前位置 -->
+    <iframe id="main" name="main" class="rightContent" frameborder="0" scrolling="yes" src="{:url('manageCenter')}" ></iframe>
+</div>
+</body>
+<script type="text/javascript">
+    $('.top-nav').click(function(){
+        $('.second-nav').toggle(100);
+        $('.arrow').toggleClass('active');
+    })
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>{if condition="isset($title)"}{$title}{else/}{$title}{/if}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--    <meta name="keywords" content="{if condition="isset($keywords)"}{$keywords}{else/}{web name='keywords' /}{/if}" />
+    <meta name="description" content="{if condition="isset($description)"}{$description}{else/}{web name='description' /}{/if}" />-->
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--script-->
+    <link href="__STATIC__/home/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="__STATIC__/home/css/style.css" rel='stylesheet' type='text/css' />
+    <script src="__STATIC__/home/js/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="__PUBLIC__/js/move-top.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/easing.js"></script> -->
+    <link rel="stylesheet" href="__STATIC__/admin/js/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
+    <script type="text/javascript" src="__STATIC__/admin/js/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            $(".scroll").click(function(event){
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+            });
+            SyntaxHighlighter.all();
+        });
+    </script>
+
+</head>
+<body>
+<!---header---->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="{:url('index/index')}"><img src="__STATIC__/home/images/title.png" width="220" height="169" title="{web name='title' /}" /></a>
+        </div>
+        <!---start-top-nav---->
+        <div class="top-menu">
+            <div class="search">
+                <form action="{:url('search/index')}" method="get">
+                    <input type="text" name="keywords" placeholder="输入关键词" required/>
+                    <input type="submit" value=""/>
+                </form>
+            </div>
+            <span class="menu"> </span>
+            <ul>
+                <li class="active"><a href="{:url('index/index')}">首 页</a></li>
+                {volist name='nav' id='rows'}
+                {if condition="$rows.name eq '新闻'"}
+                <li><a href="{:url($rows.template_category,['type'=>2])}">{$rows.name}</a></li>
+                {else/}
+                <li><a href="{:url($rows.template_category)}">{$rows.name}</a></li>
+                {/if}
+                {/volist}
+                <div class="clearfix"> </div>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        <script>
+            $("span.menu").click(function(){
+                $(".top-menu ul").slideToggle("slow" , function(){
+                });
+            });
+        </script>
+        <!---//End-top-nav---->
+    </div>
+</div>

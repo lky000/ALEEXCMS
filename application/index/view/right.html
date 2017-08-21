@@ -1,0 +1,32 @@
+<div class="col-md-4 content-right">
+    <div class="recent">
+        <h3>最新文章</h3>
+        <ul>
+            {volist name='article' id='rows'}
+            <li><a href="{:url('index/article',['id'=>$rows.id])}">{$rows.title}</a></li>
+            {/volist}
+        </ul>
+    </div>
+    <div class="comments">
+        <h3>最近评论</h3>
+        <ul>
+           {volist name='comment' id='rows'}
+            <li><a href="#">{$rows.ctitle} </a> on <a href="#">{$rows.atitle}</a></li>
+            {/volist}
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="archives">
+        <h3>归档</h3>
+        <ul>
+
+        </ul>
+    </div>
+    <div class="categories">
+        <h3>分类</h3>
+        <ul>
+
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+</div>

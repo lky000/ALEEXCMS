@@ -1,0 +1,55 @@
+{include file="header" /}
+<div id="dcWrap">
+    <!--包含公共模版-->
+    <div id="dcMain">
+        <!-- 当前位置 -->
+        <div id="urHere"><a href="{:url('index/index')}">管理中心</a><b>></b><strong>单页面列表</strong></div>
+        <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+            <h3><a href="{:url('page/index')}" class="actionBtn">单页面列表</a>添加单页面</h3>
+
+            <form action="{:url('page/add')}" method="post">
+                <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                    <tr>
+                        <td align="center">单页面名称</td>
+                        <td>
+                            <input type="text" name="name" size="40" class="inpMain"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">单页面别名</td>
+                        <td>
+                            <input type="text" name="ename" size="40" class="inpMain"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">简单描述</td>
+                        <td>
+                            <textarea type="text" name="description" value="" cols="125" rows="5" class="inpMain"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">单页面内容</td>
+                        <td>
+                            <!-- 富文本框 -->
+                            {include file="/editor"}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input name="modelid" value="2" type="hidden">
+                            <span class="btn"> 提交 </span>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+    var art_pro_url = "{:url('page/add')}";
+</script>
+</body>
+</html>

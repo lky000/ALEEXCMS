@@ -1,0 +1,91 @@
+{include file="header" title='系统设置'/}
+<div id="dcWrap">
+    <!--包含公共模版-->
+    <div id="dcMain">
+        <!-- 当前位置 -->
+        <div id="urHere"> 管理中心<b>></b><strong>系统设置</strong></div>
+        <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+            <h3>系统设置</h3>
+
+            <div class="idTabs">
+                <ul class="tab">
+                    <li><a id="site" class="selected">设置</a></li>
+                </ul>
+                <div class="items">
+                    <form>
+                        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic" >
+                            <tr>
+                                <th width="131">名称</th>
+                                <th align="left">内容</th>
+                            </tr>
+                            {volist name="$list" id="vo"}
+                            <!--判断输入框类型-->
+                            {switch name="vo.tvalue"}
+                            {case value="radio"}
+                            <tr>
+                                <td align="center">{$vo.title}:</td>
+                                <td>
+                                    <label for="{$vo.name}_no">
+                                        <input type="radio" name="{$vo.name}" id="{$vo.name}_no" value="0" checked="true">
+                                        否</label>
+                                    <label for="{$vo.name}_yes">
+                                        <input type="radio" name="{$vo.name}" id="{$vo.name}_yes" value="1">
+                                        是</label>
+                                    {if condition="$vo['remark']"}<p class="cue">{$vo.remark}</p>{/if}
+                                </td>
+                            </tr>
+                            {/case}
+                            {case value="select"}
+                            <tr>
+                                <td align="center">{$vo.title}:</td>
+                                <td>
+                                    <select name="{$vo.name}" >
+                                        <option value=""  >---请选择---</option>
+                                        <option value="{$vo.value}" >{$vo.value}</option>
+
+                                    </select>
+                                </td>
+                            </tr>
+                            {/case}
+                            {default /}
+                            <tr>
+                                <td align="center">{$vo.title}:</td>
+                                <td>
+                                    <input type="text" name="{$vo.name}" value="{$vo.value}" size="80"
+                                           class="inpMain"/>
+                                    {if condition="$vo['remark']"}<p class="cue">{$vo.remark}</p>{/if}
+                                </td>
+                            </tr>
+                            {/switch}
+                            {/volist}
+                        </table>
+
+
+                <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                    <tr>
+                        <td width="131"></td>
+                        <td>
+                            <span class="btn">提 交</span>
+                        </td>
+                    </tr>
+                </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+</div>
+<script type="text/javascript">
+    $(".tab a").click(function(){
+        var id = $(this).attr('id');
+        $(".tab a").removeClass("selected");
+        $(this).addClass("selected");
+        $("div#" + id).show().siblings('div').hide();
+    });
+
+    var art_pro_url = "{:url('index/system')}";//form表单要提交的地址
+</script>
+</body>
+</html>

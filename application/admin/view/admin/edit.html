@@ -1,0 +1,119 @@
+{include file='header' title='管理员编辑'}
+<div id="dcWrap">
+    <div id="dcMain">
+        <!-- 当前位置 -->
+        <div id="urHere">管理中心<b>></b><strong>网站管理员</strong></div>
+        <div id="manager" class="mainBox" style="height:auto!important;">
+
+            <form>
+                <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                    <tr>
+                        <td width="100" align="right">管理员名称</td>
+                        <td>
+                            <input type="text" name="username" value="{$adminInfo.username}" size="40" class="inpMain"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100" align="right">E-mail地址</td>
+                        <td>
+                            <input type="text" name="email" size="40" value="{$adminInfo.email}" class="inpMain"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">原密码</td>
+                        <td>
+                            <input type="password" id="old_psw" name="old_password" size="40" class="inpMain"/><span name="check" id="check_psw" style="display:inline-block;width:50px;"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">新密码</td>
+                        <td>
+                            <input type="password" name="password" id="psw" size="40" class="inpMain"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">确认密码</td>
+                        <td>
+                            <input type="password" name="repassword" id="repsw" size="40" class="inpMain"/><span name="check" id="check_repsw" style="display:inline-block;width:80px;"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">是否锁定</td>
+                        <td>
+                            <label for="islock_no">
+                                <input type="radio" name="islock" id="islock_no" value="0" {if condition="$adminInfo['islock'] eq 0"} checked="checked"{/if}>
+                                否</label>
+                            <label for="islock_yes">
+                                <input type="radio" name="islock" id="islock_yes" value="1" {if condition="$adminInfo['islock'] eq 1"} checked="checked"{/if}>
+                                是</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">管理员类型</td>
+                        <td>
+
+                                {volist name='userType' id='rows'}
+                                <label for="islock_{$rows.id}">
+                                    <input type="radio" name="usertype" id="islock_{$rows.id}" value="{$rows.id}" {if condition="$adminInfo['usertype'] eq $rows['id']"} checked="checked"{/if}>
+                                    {$rows.name}</label>
+                                {/volist}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <span class="btn">提 交</span>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+    var art_pro_url = "{:url('admin/edit',['id'=>$adminInfo.id])}";//form表单要提交的地址
+    $(function () {
+        $("#old_psw").blur(function () {
+
+            var $old_psw=$(this).val();
+
+           $.ajax({
+               url:"{:url('admin/check_psw',['id'=>$adminInfo.id])}",
+               type:"post",
+               data:{'psw':$old_psw},
+               dataType:"text",
+               success:function (data) {
+                   if(data=='success')
+                   {
+                       $('#check_psw').text('密码正确');
+                       $('#check_psw').css('color','green');
+
+                   }
+                   else
+                   {
+                       $('#check_psw').text('密码错误');
+                       $('#check_psw').css('color','red');
+                   }
+               },
+               error:function () {
+                   alerts('服务器出错！')
+               }
+           });
+        });
+        $("#repsw").blur(function () {
+           var $psw=$("#psw").val();
+           if($psw!=$(this).val())
+           { $('#check_repsw').text('密码不一致');
+               $('#check_repsw').css('color','red');}
+           else
+           {
+               /*$('#check_repsw').text('密码正确');
+               $('#check_repsw').css('color','green');*/
+           }
+        })
+    })
+</script>
+</body>
+</html>
